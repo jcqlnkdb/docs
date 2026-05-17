@@ -1,6 +1,55 @@
 ---
 title: 'Authentication'
-description: 'Placeholder'
+description: 'How to authenticate requests to the TaskFlow API'
 ---
 
-TODO
+Every request to the TaskFlow API requires a valid API key sent as a Bearer token in the `Authorization` header. Requests without a key, or with an invalid key, are rejected with a `401 Unauthorized` response.
+
+## Header format
+
+Include the `Authorization` header in every request:
+
+```http
+Authorization: Bearer tf-live-4a8f2c1e9b3d7e6a
+```
+
+Replace the example token with your actual API key.
+
+## Example request
+
+```bash
+curl --request POST \
+  --url https://test-writechoice.onrender.com/projects \
+  --header 'Authorization: Bearer tf-live-4a8f2c1e9b3d7e6a' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "name": "API Documentation Revamp"
+  }'
+```
+
+If authentication succeeds, the request proceeds and returns the expected response for that endpoint. There is no separate authentication response — a successful `2xx` status code from any endpoint confirms that authentication worked.
+
+## Authentication errors
+
+If the `Authorization` header is missing or contains an invalid key, the API returns `401 Unauthorized`:
+
+```json
+{
+  "error": "Unauthorized",
+  "message": "Invalid or missing API key."
+}
+```
+
+Common causes:
+
+- The `Authorization` header is not included in the request
+- The token format is missing the `Bearer ` prefix (note the space after `Bearer`)
+- The API key is incorrect or has been revoked
+
+## Where to get an API key
+
+For evaluation purposes, the TaskFlow team provides a test API key directly to candidates. In a production environment, keys would be issued through a developer portal or by request from the TaskFlow team.
+
+<Note>
+Treat your API key like a password. Do not commit it to public repositories, share it in client-side code, or include it in shared documentation.
+</Note>
