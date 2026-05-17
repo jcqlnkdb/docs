@@ -1,6 +1,22 @@
 ---
 title: 'Task Lifecycle'
-description: 'Placeholder'
+description: 'How task status changes over time'
 ---
 
-TODO
+Every task has a `status` field that reflects its progress. TaskFlow defines three possible statuses, and tasks transition between them through API requests.
+
+## The three states
+
+| Status | Meaning |
+|--------|---------|
+| `pending` | Created, not yet started |
+| `in_progress` | Currently being worked on |
+| `done` | Completed |
+
+## Initial status
+
+Every task is created with `status: "pending"`. It is not possible to create a task in a different status. To change the status, send an update request after creation.
+
+## Transitioning between states
+
+The intended flow is `pending → in_progress → done`, but TaskFlow does not restrict transitions. A task can move to any state from any other state — for example, from `done` back to `pending` if work needs to be redone.
