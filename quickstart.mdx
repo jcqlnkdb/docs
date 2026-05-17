@@ -1,6 +1,124 @@
 ---
-title: 'Quickstart'
-description: 'Placeholder'
+Title: 'Quickstart'
+Description: 'Create your first project and task in five minutes'
 ---
 
-TODO
+This quickstart walks through a complete workflow: creating a project, adding a task to it, and confirming the result. By the end, you will have made three successful requests to the TaskFlow API.
+
+<Note>
+**Prerequisites:** A valid API key and a tool to send HTTP requests (curl, Postman, Insomnia, or the Try It panel on each endpoint page of this documentation).
+</Note>
+
+<Warning>
+The TaskFlow test server enters an idle state when not in use. Your first request may take up to 60 seconds to respond. Subsequent requests respond immediately.
+</Warning>
+
+## Step 1: Create a project
+
+Send a `POST` request to `/projects` with a project name.
+
+```bash
+curl --request POST \
+  --url https://test-writechoice.onrender.com/projects \
+  --header 'Authorization: Bearer tf-live-4a8f2c1e9b3d7e6a' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "name": "API Documentation Revamp"
+  }'
+```
+
+A successful response returns `201 Created` with the new project's details:
+
+```json
+{
+  "project_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "name": "API Documentation Revamp",
+  "description": null,
+  "created_at": "2026-05-17T10:30:00.000Z"
+}
+```
+
+<Warning>
+Save the `project_id`. It is required to create tasks, and there is no endpoint to retrieve it later.
+</Warning>
+
+## Step 2: Add a task
+
+Use the `project_id` from Step 1 in the request body.
+
+```bash
+curl --request POST \
+  --url https://test-writechoice.onrender.com/tasks \
+  --header 'Authorization: Bearer tf-live-4a8f2c1e9b3d7e6a' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "project_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "title": "Write introduction page",
+    "description": "Draft the overview and getting started sections."
+  }'
+```
+
+A successful response returns `201 Created`:
+
+```json
+{
+  "task_id": "f9e8d7c6-b5a4-3210-fedc-ba9876543210",
+  "project_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "title": "Write introduction page",
+  "description": "Draft the overview and getting started sections.",
+  "status": "pending",
+  "created_at": "2026-05-17T10:35:00.000Z",
+  "updated_at": "2026-05-17T10:35:00.000Z"
+}
+```
+
+New tasks always start with `status: "pending"`. See [Task lifecycle](/concepts/task-lifecycle) for how status changes.
+
+## Step 3: Confirm the task
+
+List all tasks in your project to confirm the task was created.
+
+```bash
+curl --request GET \
+  --url https://test-writechoice.onrender.com/projects/a1b2c3d4-e5f6-7890-abcd-ef1234567890/tasks \
+  --header 'Authorization: Bearer tf-live-4a8f2c1e9b3d7e6a'
+```
+
+A successful response returns `200 OK` with the task list:
+
+```json
+{
+  "project_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "total": 1,
+  "tasks": [
+    {
+      "task_id": "f9e8d7c6-b5a4-3210-fedc-ba9876543210",
+      "project_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "title": "Write introduction page",
+      "description": "Draft the overview and getting started sections.",
+      "status": "pending",
+      "created_at": "2026-05-17T10:35:00.000Z",
+      "updated_at": "2026-05-17T10:35:00.000Z"
+    }
+  ]
+}
+```
+
+You have completed the core TaskFlow workflow.
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Concepts" icon="diagram-project" href="/concepts/data-model">
+    Understand the data model and task lifecycle
+  </Card>
+  <Card title="Managing tasks" icon="list-check" href="/guides/managing-tasks">
+    Update statuses, edit content, and delete tasks
+  </Card>
+  <Card title="API Reference" icon="code" href="/api-reference/projects/create-project">
+    Detailed reference for every endpoint
+  </Card>
+  <Card title="Troubleshoot" icon="triangle-exclamation" href="/resources/errors">
+    Understand error responses
+  </Card>
+</CardGroup>
