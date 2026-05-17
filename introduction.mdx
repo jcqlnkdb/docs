@@ -1,6 +1,38 @@
 ---
 title: 'Introduction'
-description: 'Placeholder'
+description: 'TaskFlow API overview and capabilities'
 ---
 
-TODO
+TaskFlow is a REST API for managing projects and tasks. Use it to create projects, add tasks, track their status, and remove them when they are no longer needed.
+
+## What you can do
+
+- Create projects
+- Create tasks within a project
+- List all tasks in a project
+- Update a task's title, description, or status
+- Delete tasks
+
+<Warning>
+TaskFlow does not support listing or modifying projects after creation, and individual tasks cannot be retrieved directly — only as part of a project's task list. See [Capabilities and Limitations](/concepts/capabilities-and-limitations) before designing your integration.
+</Warning>
+
+## Sequential dependencies
+
+Some operations depend on existing resources:
+
+- A project must exist before you can create tasks
+- A task must exist before you can update or delete it
+
+The [Quickstart](/quickstart) walks through the full sequence in five minutes.
+
+## Get started
+
+<CardGroup cols={2}>
+  <Card title="Quickstart" icon="rocket" href="/quickstart">
+    Create your first project and task in five minutes
+  </Card>
+  <Card title="Authentication" icon="key" href="/authentication">
+    Configure your Bearer token before sending requests
+  </Card>
+</CardGroup>
