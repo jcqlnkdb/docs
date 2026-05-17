@@ -1,6 +1,34 @@
 ---
-title: 'Capabilites and Limitations'
-description: 'Placeholder'
+Title: 'Capabilities and Limitations'
+Description: 'What the TaskFlow API supports and what it does not'
 ---
 
-TODO
+TaskFlow supports a focused set of operations. This page lists exactly what is possible and what is not, so you can plan your integration.
+
+## Supported operations
+
+| Resource | Create | Read | List | Update | Delete |
+|----------|--------|------|------|--------|--------|
+| Projects | ✓ | — | — | — | — |
+| Tasks    | ✓ | — | ✓\* | ✓ | ✓ |
+
+\* Listing tasks works only within a specific project. There is no endpoint to list all tasks across the system.
+
+## What you cannot do
+
+- List all existing projects
+- Retrieve a project by its ID
+- Update or delete a project after creation
+- Retrieve an individual task by its ID (tasks can only be accessed through a project's task list)
+- Perform bulk operations on multiple resources
+- Filter or search within listings
+
+## Plan your integration
+
+These limitations shape how you should integrate with TaskFlow:
+
+- **Store project IDs in your own system.** TaskFlow does not provide a way to retrieve them later.
+- **Decide on a project's identity at creation.** Names and descriptions cannot be edited after the project exists.
+- **Implement filtering and search on the client side** if you need to find specific tasks by criteria.
+
+See [Quickstart](/quickstart) for the supported workflow, or [Data Model](/concepts/data-model) for the structure of each resource.
