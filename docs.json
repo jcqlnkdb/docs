@@ -50,16 +50,16 @@
           {
             "group": "Projects",
             "pages": [
-              "api-reference/projects/create-a-project"
+              "api-reference/projects/create-project"
             ]
           },
           {
             "group": "Tasks",
             "pages": [
-              "api-reference/tasks/create-a-task",
+              "api-reference/tasks/create-task",
               "api-reference/tasks/list-tasks",
-              "api-reference/tasks/update-a-task",
-              "api-reference/tasks/delete-a-task"
+              "api-reference/tasks/update-task",
+              "api-reference/tasks/delete-task"
             ]
           }
         ]
