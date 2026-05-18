@@ -1,55 +1,29 @@
-# Mintlify Starter Kit
+# TaskFlow API Documentation
 
-Use the starter kit to get your docs deployed and ready to customize.
+Documentation site for the TaskFlow API, built as part of the Technical Writing Jr test from writechoice.org.
 
-Click the green **Use this template** button at the top of this repo to copy the Mintlify starter kit. The starter kit contains examples with
+**Live site:** [acme-d9d73fef.mintlify.app](https://acme-d9d73fef.mintlify.app)
 
-- Guide pages
-- Navigation
-- Customizations
-- API reference pages
-- Use of popular components
+## About this project
 
-**[Follow the full quickstart guide](https://starter.mintlify.com/quickstart)**
+This documentation covers the TaskFlow REST API — a focused task management API that supports project creation and full task lifecycle management. The site is built with Mintlify and includes:
 
-## AI-assisted writing
+- Conceptual documentation (data model, task lifecycle, capabilities and limitations)
+- A quickstart for first-time integration
+- A workflow guide for common task operations
+- Auto-generated API reference from the OpenAPI specification
+- Reference pages for errors and runtime behaviors
 
-Set up your AI coding tool to work with Mintlify:
+## Repository structure
 
-```bash
-npx skills add https://mintlify.com/docs
-```
+- `docs.json` — Mintlify site configuration and navigation
+- `openapi.yaml` — TaskFlow API specification
+- `introduction.mdx`, `authentication.mdx`, `quickstart.mdx` — Get Started pages
+- `concepts/` — Data model, task lifecycle, capabilities and limitations
+- `guides/` — Workflow guides
+- `api-reference/` — Per-endpoint reference pages
+- `resources/` — Errors and API behaviors
 
-This command installs Mintlify's documentation skill for your configured AI tools like Claude Code, Cursor, Windsurf, and others. The skill includes component reference, writing standards, and workflow guidance.
+## Process notes
 
-See the [AI tools guides](/ai-tools) for tool-specific setup.
-
-## Development
-
-Install the [Mintlify CLI](https://www.npmjs.com/package/mint) to preview your documentation changes locally. To install, use the following command:
-
-```
-npm i -g mint
-```
-
-Run the following command at the root of your documentation, where your `docs.json` is located:
-
-```
-mint dev
-```
-
-View your local preview at `http://localhost:3000`.
-
-## Publishing changes
-
-Install our GitHub app from your [dashboard](https://dashboard.mintlify.com/settings/organization/github-app) to propagate changes from your repo to your deployment. Changes are deployed to production automatically after pushing to the default branch.
-
-## Need help?
-
-### Troubleshooting
-
-- If your dev environment isn't running: Run `mint update` to ensure you have the most recent version of the CLI.
-- If a page loads as a 404: Make sure you are running in a folder with a valid `docs.json`.
-
-### Resources
-- [Mintlify documentation](https://mintlify.com/docs)
+See [REPORT.md](./REPORT.md) for a write-up of the editorial decisions made, the workflow used, and disclosure of tooling (including AI assistance).
