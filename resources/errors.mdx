@@ -1,5 +1,88 @@
 ---
 title: 'Errors'
-description: ''
+description: 'HTTP status codes and error responses returned by the TaskFlow API'
 ---
 
+TaskFlow returns errors with a consistent shape: an HTTP status code paired with a JSON body containing an `error` type and a descriptive `message`.
+
+## Error response format
+
+All error responses follow this structure:
+
+```json
+{
+  "error": "Not Found",
+  "message": "No project found with project_id 'abc123'."
+}
+```
+
+The `message` field includes context (such as which ID was not found) — read it for specifics when troubleshooting.
+
+## Status code reference
+
+| Code | Meaning | When it happens |
+|------|---------|-----------------|
+| `200` | OK | Read, update, or delete completed successfully |
+| `201` | Created | Resource created successfully |
+| `400` | Bad Request | Missing body, missing required fields, or invalid value |
+| `401` | Unauthorized | Missing or invalid API key |
+| `404` | Not Found | The project or task with the given ID does not exist |
+
+## 400 Bad Request
+
+Returned when the request body is missing, malformed, has absent required fields, or contains an invalid value (for example, an unrecognized `status`).
+
+```json
+{
+  "error": "Bad Request",
+  "message": "Missing required field: name."
+}
+```
+
+**Common causes:**
+
+- Request body is missing or not valid JSON
+- A required field (such as `name` for projects, or `title` for tasks) is absent
+- The `status` field has a value other than `pending`, `in_progress`, or `done`
+
+## 401 Unauthorized
+
+Returned when the `Authorization` header is missing or contains an invalid API key.
+
+```json
+{
+  "error": "Unauthorized",
+  "message": "Invalid or missing API key."
+}
+```
+
+**Common causes:**
+
+- The `Authorization` header is not included in the request
+- The token format is missing the `Bearer ` prefix
+- The API key is incorrect or has been revoked
+
+See [Authentication](/authentication) for the correct header format.
+
+## 404 Not Found
+
+Returned when the project or task referenced by an ID does not exist.
+
+```json
+{
+  "error": "Not Found",
+  "message": "No project found with project_id 'a1b2c3d4-e5f6-7890-abcd-ef1234567890'."
+}
+```
+
+**Common causes:**
+
+- The `project_id` or `task_id` does not match an existing resource
+- A resource was deleted between requests
+- The ID was mistyped
+
+<Tip>
+
+Always read the `message` field for specific details about what went wrong. It includes contextual information such as the offending ID or missing field name.
+
+</Tip>
